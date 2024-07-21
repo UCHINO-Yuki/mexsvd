@@ -19,13 +19,15 @@ res3=0;
 %% compile
 if strcmp(func,'compile')
     disp('Compiling ... ')
+    p = which('mexsvd');
+    p = p(1:end-8);
     try
-        mex -R2018a ./private/dgesdd.c -lmwlapack -silent -outdir ./private
-        mex -R2018a ./private/dgesvd.c -lmwlapack -silent -outdir ./private
-        mex -R2018a ./private/dgesvdx.c -lmwlapack -silent -outdir ./private
-        mex -R2018a ./private/sgesdd.c -lmwlapack -silent -outdir ./private
-        mex -R2018a ./private/sgesvd.c -lmwlapack -silent -outdir ./private
-        mex -R2018a ./private/sgesvdx.c -lmwlapack -silent -outdir ./private
+        mex('-R2018a', [p 'private/dgesdd.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
+        mex('-R2018a', [p 'private/dgesvd.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
+        mex('-R2018a', [p 'private/dgesvdx.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
+        mex('-R2018a', [p 'private/sgesdd.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
+        mex('-R2018a', [p 'private/sgesvd.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
+        mex('-R2018a', [p 'private/sgesvdx.c'], '-lmwlapack', '-silent', '-outdir', [p 'private']);
     catch
         error('error');
     end
